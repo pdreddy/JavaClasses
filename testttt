@@ -1,0 +1,53 @@
+Connection conn = null;
+PreparedStatement ps = null;
+ResultSet rs = null;
+boolean success = false;
+
+try {
+    conn = getConnection(DATA_SOURCE_NAME);
+
+    ps = conn.prepareStatement(GET_LLA_ROLE_SQL);
+    ps.setString(1, "LLA");
+    ps.setString(2, esopin);
+
+    rs = ps.executeQuery();
+
+    success = rs.next();   // true if at least one matching row exists
+
+} catch (Exception e) {
+    logger.error("Error checking LLA role", e);
+} finally {
+    closeConnection(conn, ps, rs); // or however your project closes resources
+}
+
+return success;
+
+
+public class RoleDaoImpl extends AndiDao implements RoleDao {
+
+    private static final String SQL =
+        "SELECT 1 " +
+        "FROM piresc.roles r " +
+        "JOIN piresc.associnf a " +
+        "ON a.ASSN2AFL_UID = r.ASSN2AFL_UID " +
+        "WHERE r.ROLE_IDFR = ? " +
+        "AND a.ESOPIN = ?";
+
+    @Override
+    public boolean hasLlaRole(String esopin) {
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL)) {
+
+            ps.setString(1, "LLA");
+            ps.setString(2, esopin);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error checking LLA role", e);
+        }
+    }
+}
