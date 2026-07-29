@@ -1,1 +1,561 @@
-%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> <%@ include file="../includes/global.inc" %> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <c:set var="pageId" value="LLAuth" /> <fmt:bundle basename="LLAuth"> <fmt:message key="${pageId}.pagetitle" var="pageTitle" /> <fmt:message key="${pageId}.notice.textHeader" var="noticeHeader" /> <fmt:message key="${pageId}.notice.text1" var="noticeText" /> <fmt:message key="${pageId}.next" var="loginGovButtonText" /> <fmt:message key="${pageId}.exit" var="idMeButtonText" /> <fmt:message key="${pageId}.exit2" var="continueButtonText" /> </fmt:bundle> <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate" /> <meta http-equiv="Pragma" content="no-cache" /> <meta http-equiv="Expires" content="0" /> <title> <c:out value="${pageTitle}" default="Social Security" /> </title> <link rel="shortcut icon" type="image/x-icon" href="https://www.ssa.gov/themes/custom/ssa_core/favicon.ico" /> <!-- UEF styles --> <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/uef3-web-components/assets/css/uef-variables.css" /> <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/uef3-web-components/assets/css/uef-global.css" /> <!-- UEF web components --> <script type="module" src="${pageContext.request.contextPath}/styles/uef3-web-components/uef3-web-components.esm.js"> </script> <style> body { margin: 0; font-family: Arial, var(--uef-font-family-sans, sans-serif); } .page-container { width: 100%; max-width: 75rem; margin: 0 auto; padding: var(--uef-space-stack-4x, 2rem); box-sizing: border-box; } .content-container { width: 100%; max-width: 60rem; } .button-row { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; gap: var(--uef-space-inline-2x, 1rem); margin-top: var(--uef-space-stack-4x, 2rem); } .button-row uef-button { flex: 0 0 auto; } /* * Keep the buttons on one row. * On narrow screens, allow horizontal scrolling instead * of stacking the buttons. */ .button-scroll-container { width: 100%; overflow-x: auto; padding-bottom: 0.25rem; } </style> </head> <body> <uef-skip-nav target-id="main" shortcut-key="K"> </uef-skip-nav> <main id="main" class="page-container" tabindex="-1"> <div class="content-container"> <s:form id="transitionForm" method="post"> <uef-notice type="info" header="${noticeHeader}"> <uef-notice-body> <div class="uef-container-row"> <div class="uef-container-content"> <p> <c:out value="${noticeText}" /> </p> <p> To ensure uninterrupted access to your ERE account, please create a Login.gov or ID.me account, or sign in with your existing Login.gov or ID.me account. </p> <p> If you choose to discontinue using ERE rather than transition to the new sign-in method, please notify us. </p> </div> </div> </uef-notice-body> </uef-notice> <uef-form-controls> <div class="button-scroll-container"> <div class="button-row"> <uef-button id="loginGovButton" name="loginGovButton" type="button" fill="solid" accessibility-text="Create an account or sign in with Login.gov"> <c:out value="${loginGovButtonText}" default="Login.gov" /> </uef-button> <uef-button id="idMeButton" name="idMeButton" type="button" fill="outline" accessibility-text="Create an account or sign in with ID.me"> <c:out value="${idMeButtonText}" default="ID.me" /> </uef-button> <uef-button id="continueButton" name="continueButton" type="button" fill="outline" accessibility-text="Continue without transitioning"> <c:out value="${continueButtonText}" default="Continue without transitioning" /> </uef-button> </div> </div> </uef-form-controls> </s:form> </div> </main> <script> document.addEventListener("DOMContentLoaded", function () { const contextPath = "${pageContext.request.contextPath}"; const loginGovButton = document.getElementById("loginGovButton"); const idMeButton = document.getElementById("idMeButton"); const continueButton = document.getElementById("continueButton"); loginGovButton.addEventListener("click", function (event) { event.preventDefault(); window.location.href = contextPath + "/FIS/app?idp=" + encodeURIComponent("Login.gov") + "&target=" + encodeURIComponent("/apps9/EREHome/Erhm01View"); }); idMeButton.addEventListener("click", function (event) { event.preventDefault(); window.location.href = contextPath + "/FIS/app?idp=" + encodeURIComponent("idme") + "&target=" + encodeURIComponent("/apps9/EREHome/Erhm01View"); }); continueButton.addEventListener("click", function (event) { event.preventDefault(); window.location.href = contextPath + "/FIS/app?target=" + encodeURIComponent("/apps9/EREHome/Erhm01View"); }); }); </script> </body> </html>
+ChatGPT Plus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Based on your JSP, the page will look roughly like this on a desktop browser:
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                                                             (center)│
+│                                                                     │
+│ ┌───────────────────────────────────────────────────────────────┐    │
+│ │ ℹ️  [ Notice Header ]                                         │    │
+│ │---------------------------------------------------------------│    │
+│ │                                                               │    │
+│ │  [Localized notice text]                                      │    │
+│ │                                                               │    │
+│ │  To ensure uninterrupted access to your ERE account,          │    │
+│ │  please create a Login.gov or ID.me account, or sign          │    │
+│ │  in with your existing Login.gov or ID.me account.            │    │
+│ │                                                               │    │
+│ │  If you choose to discontinue using ERE rather than           │    │
+│ │  transition to the new sign-in method, please notify us.      │    │
+│ │                                                               │    │
+│ └───────────────────────────────────────────────────────────────┘    │
+│                                                                     │
+│  ┌──────────────────────┐ ┌───────────────┐ ┌────────────────────┐   │
+│  │ Login.gov            │ │ ID.me         │ │ Continue           │   │
+│  └──────────────────────┘ └───────────────┘ └────────────────────┘   │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+Mobile View
+On a phone, it will appear approximately like this:
+
+┌─────────────────────────────┐
+│                             │
+│ ┌─────────────────────────┐ │
+│ │ ℹ️ Notice Header        │ │
+│ │-------------------------│ │
+│ │ Localized notice text   │ │
+│ │                         │ │
+│ │ To ensure uninterrupted │ │
+│ │ access to your ERE...   │ │
+│ │                         │ │
+│ └─────────────────────────┘ │
+│                             │
+│ ◄────────────────────────►  │
+│ [ Login.gov ] [ ID.me ]     │
+│ [ Continue ]                │
+└─────────────────────────────┘
+Observations
+Looks good
+
+✅ Notice is centered with a maximum width of 60rem.
+
+✅ Plenty of whitespace.
+
+✅ Uses SSA UEF components.
+
+✅ Buttons remain on one row.
+
+Potential UX issue
+Your CSS intentionally prevents the buttons from wrapping:
+
+.button-row {
+    flex-wrap: nowrap;
+}
+
+.button-scroll-container {
+    overflow-x: auto;
+}
+So on smaller phones (320–375 px wide), users will see horizontal scrolling to reach all three buttons. This is functional but not ideal for accessibility or usability.
+
+A more modern mobile layout would instead stack them:
+
+┌────────────────────┐
+│ [ Login.gov ]      │
+│                    │
+│ [ ID.me ]          │
+│                    │
+│ [ Continue ]       │
+└────────────────────┘
+This is the pattern recommended by most design systems (including Material Design and many U.S. government interfaces) because it avoids horizontal scrolling.
+
+If you'd like, I can also create a high-fidelity visual mockup of this page that looks like a real SSA/UEF screen before you implement it.
+
+
+well format this  code aligment 
+
+Your code is already logically organized, but it can be formatted much more consistently. Here are the formatting improvements I recommend:
+
+Formatting Standards
+Use 4-space indentation consistently.
+
+Keep one attribute per line for long HTML/JSP tags.
+
+Keep single-line tags on one line when they fit comfortably.
+
+Align multiline attributes consistently.
+
+Remove unnecessary blank lines.
+
+Group sections with comments.
+
+Keep JavaScript lines under ~100 characters where practical.
+
+Use consistent brace placement (K&R style).
+
+Example
+Instead of:
+
+<fmt:message
+    key="${pageId}.pagetitle"
+    var="pageTitle"
+/>
+Use:
+
+<fmt:message
+    key="${pageId}.pagetitle"
+    var="pageTitle"
+/>
+(This is already good.)
+
+But instead of:
+
+const loginGovButton =
+    document.getElementById("loginGovButton");
+Prefer:
+
+const loginGovButton = document.getElementById("loginGovButton");
+const idMeButton = document.getElementById("idMeButton");
+const continueButton = document.getElementById("continueButton");
+Instead of:
+
+window.location.href =
+    contextPath +
+    "/FIS/app?idp=" +
+    encodeURIComponent("Login.gov") +
+    "&target=" +
+    encodeURIComponent("/apps9/EREHome/Erhm01View");
+Use a template literal:
+
+window.location.href =
+    `${contextPath}/FIS/app?idp=${encodeURIComponent("Login.gov")}` +
+    `&target=${encodeURIComponent("/apps9/EREHome/Erhm01View")}`;
+or even better:
+
+const target = encodeURIComponent("/apps9/EREHome/Erhm01View");
+
+window.location.href =
+    `${contextPath}/FIS/app?idp=${encodeURIComponent("Login.gov")}&target=${target}`;
+HTML
+Instead of excessive blank spacing:
+
+<main
+    id="main"
+    class="page-container"
+    tabindex="-1">
+
+    <div class="content-container">
+
+        <s:form
+            id="transitionForm"
+            method="post">
+Use:
+
+<main
+    id="main"
+    class="page-container"
+    tabindex="-1"
+>
+    <div class="content-container">
+        <s:form
+            id="transitionForm"
+            method="post"
+        >
+This style is much cleaner and matches Prettier formatting.
+
+CSS
+Group properties logically:
+
+.page-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: var(--uef-space-stack-4x, 2rem);
+}
+instead of mixing sizing and spacing.
+
+JavaScript
+Instead of repeating event listeners:
+
+loginGovButton.addEventListener(...);
+
+idMeButton.addEventListener(...);
+
+continueButton.addEventListener(...);
+Create a helper:
+
+const target = encodeURIComponent("/apps9/EREHome/Erhm01View");
+
+function redirect(idp) {
+    const url = idp
+        ? `${contextPath}/FIS/app?idp=${encodeURIComponent(idp)}&target=${target}`
+        : `${contextPath}/FIS/app?target=${target}`;
+
+    window.location.assign(url);
+}
+
+loginGovButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    redirect("Login.gov");
+});
+
+idMeButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    redirect("idme");
+});
+
+continueButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    redirect();
+});
+This removes duplicated code and is easier to maintain.
+
+Overall
+I'd rate the current formatting:
+
+Readability: 8/10
+
+Consistency: 7/10
+
+Maintainability: 8/10
+
+Enterprise (SSA/Deloitte) standard: 8/10
+
+With consistent formatting, grouped CSS, template literals, and a reusable redirect function, it would reach 9.5–10/10 and align well with enterprise Java/JSP coding standards.
+
+
+give me full cide aligned 
+
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="../includes/global.inc" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="pageId" value="LLAuth" />
+
+<fmt:bundle basename="LLAuth">
+    <fmt:message
+        key="${pageId}.pagetitle"
+        var="pageTitle"
+    />
+
+    <fmt:message
+        key="${pageId}.notice.textHeader"
+        var="noticeHeader"
+    />
+
+    <fmt:message
+        key="${pageId}.notice.text1"
+        var="noticeText"
+    />
+
+    <fmt:message
+        key="${pageId}.next"
+        var="loginGovButtonText"
+    />
+
+    <fmt:message
+        key="${pageId}.exit"
+        var="idMeButtonText"
+    />
+
+    <fmt:message
+        key="${pageId}.exit2"
+        var="continueButtonText"
+    />
+</fmt:bundle>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    />
+
+    <meta
+        http-equiv="Cache-Control"
+        content="no-store, no-cache, must-revalidate, proxy-revalidate"
+    />
+
+    <meta
+        http-equiv="Pragma"
+        content="no-cache"
+    />
+
+    <meta
+        http-equiv="Expires"
+        content="0"
+    />
+
+    <title>
+        <c:out
+            value="${pageTitle}"
+            default="Social Security"
+        />
+    </title>
+
+    <link
+        rel="shortcut icon"
+        type="image/x-icon"
+        href="https://www.ssa.gov/themes/custom/ssa_core/favicon.ico"
+    />
+
+    <!-- UEF styles -->
+    <link
+        rel="stylesheet"
+        href="${pageContext.request.contextPath}/styles/uef3-web-components/assets/css/uef-variables.css"
+    />
+
+    <link
+        rel="stylesheet"
+        href="${pageContext.request.contextPath}/styles/uef3-web-components/assets/css/uef-global.css"
+    />
+
+    <!-- UEF web components -->
+    <script
+        type="module"
+        src="${pageContext.request.contextPath}/styles/uef3-web-components/uef3-web-components.esm.js"
+    ></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, var(--uef-font-family-sans, sans-serif);
+        }
+
+        .page-container {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 75rem;
+            margin: 0 auto;
+            padding: var(--uef-space-stack-4x, 2rem);
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 60rem;
+        }
+
+        .button-scroll-container {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 0.25rem;
+        }
+
+        .button-row {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            gap: var(--uef-space-inline-2x, 1rem);
+            margin-top: var(--uef-space-stack-4x, 2rem);
+        }
+
+        .button-row uef-button {
+            flex: 0 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <uef-skip-nav
+        target-id="main"
+        shortcut-key="K"
+    ></uef-skip-nav>
+
+    <main
+        id="main"
+        class="page-container"
+        tabindex="-1"
+    >
+        <div class="content-container">
+            <s:form
+                id="transitionForm"
+                method="post"
+            >
+                <uef-notice
+                    type="info"
+                    header="${noticeHeader}"
+                >
+                    <uef-notice-body>
+                        <div class="uef-container-row">
+                            <div class="uef-container-content">
+                                <p>
+                                    <c:out value="${noticeText}" />
+                                </p>
+
+                                <p>
+                                    To ensure uninterrupted access to your ERE
+                                    account, please create a Login.gov or ID.me
+                                    account, or sign in with your existing
+                                    Login.gov or ID.me account.
+                                </p>
+
+                                <p>
+                                    If you choose to discontinue using ERE rather
+                                    than transition to the new sign-in method,
+                                    please notify us.
+                                </p>
+                            </div>
+                        </div>
+                    </uef-notice-body>
+                </uef-notice>
+
+                <uef-form-controls>
+                    <div class="button-scroll-container">
+                        <div class="button-row">
+                            <uef-button
+                                id="loginGovButton"
+                                name="loginGovButton"
+                                type="button"
+                                fill="solid"
+                                accessibility-text="Create an account or sign in with Login.gov"
+                            >
+                                <c:out
+                                    value="${loginGovButtonText}"
+                                    default="Login.gov"
+                                />
+                            </uef-button>
+
+                            <uef-button
+                                id="idMeButton"
+                                name="idMeButton"
+                                type="button"
+                                fill="outline"
+                                accessibility-text="Create an account or sign in with ID.me"
+                            >
+                                <c:out
+                                    value="${idMeButtonText}"
+                                    default="ID.me"
+                                />
+                            </uef-button>
+
+                            <uef-button
+                                id="continueButton"
+                                name="continueButton"
+                                type="button"
+                                fill="outline"
+                                accessibility-text="Continue without transitioning"
+                            >
+                                <c:out
+                                    value="${continueButtonText}"
+                                    default="Continue without transitioning"
+                                />
+                            </uef-button>
+                        </div>
+                    </div>
+                </uef-form-controls>
+            </s:form>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const contextPath = "${pageContext.request.contextPath}";
+            const targetPath = "/apps9/EREHome/Erhm01View";
+
+            const loginGovButton =
+                document.getElementById("loginGovButton");
+
+            const idMeButton =
+                document.getElementById("idMeButton");
+
+            const continueButton =
+                document.getElementById("continueButton");
+
+            function redirectToFIS(idp) {
+                let redirectUrl =
+                    contextPath +
+                    "/FIS/app?target=" +
+                    encodeURIComponent(targetPath);
+
+                if (idp) {
+                    redirectUrl =
+                        contextPath +
+                        "/FIS/app?idp=" +
+                        encodeURIComponent(idp) +
+                        "&target=" +
+                        encodeURIComponent(targetPath);
+                }
+
+                window.location.href = redirectUrl;
+            }
+
+            if (loginGovButton) {
+                loginGovButton.addEventListener(
+                    "click",
+                    function (event) {
+                        event.preventDefault();
+                        redirectToFIS("Login.gov");
+                    }
+                );
+            }
+
+            if (idMeButton) {
+                idMeButton.addEventListener(
+                    "click",
+                    function (event) {
+                        event.preventDefault();
+                        redirectToFIS("idme");
+                    }
+                );
+            }
+
+            if (continueButton) {
+                continueButton.addEventListener(
+                    "click",
+                    function (event) {
+                        event.preventDefault();
+                        redirectToFIS();
+                    }
+                );
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
